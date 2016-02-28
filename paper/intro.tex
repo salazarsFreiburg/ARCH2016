@@ -179,7 +179,7 @@ variables.
 
 \subsection{Possible Extensions of the Benchmark}
 
-In the following we mention some possible extensions and uses for our benchmark:
+In the following, we mention some possible extensions and uses for our benchmark:
 \begin{enumerate} 
 \item it can be used as a basis for modeling TTEthernet networks where we can verify the
 precision of the synchronization algorithm under failures of a single SM, a single CM, and
@@ -196,22 +196,31 @@ by introducing additional CMs and SMs.
 \end{enumerate} 
  
 \section{Experiments}
-In the following section we present the results of our experiments, where our aim is to show that
+In the following section, we present the results of our experiments, where our aim is to show that
 in our benchmark we have: (a) verified that the precision of the synchronization algorithm holds and, 
 (b) applied the techniques for detecting and reducing quasi-dependent variables. 
 We have verified the precision of the synchronization algorithm in settings of our benchmark with 2 CMs and from 5 to 30 SMs. 
 We recall that our benchmark is a fault-tolerant TTEthernet network with non-faulty components. 
-In this benchmark the maximal difference between the values of any two logical clocks of two SMs is bounded by 
+In this benchmark, we verify that the maximal difference between the values of any two logical clocks of two SMs is bounded by 
 $2*\mathit{maxdrift}$, as reported in~\cite{Steiner2}.
-Additionally, we have transformed each setting, where we have detected and reduced the number of 
-quasi-dependent variables. The results for both, original and transformed networks, are reported in 
-Table~\ref{Table1}. In this table we compare the analysis runtime needed by the model checker 
-\emph{SpaceEx}~\cite{Frehse,bogomolov-et-al-sttt2015,DBLP:conf/hvc/BogomolovFGGPPS14} in 2,000 iterations
+%
+In addition, in order to enable efficient handling of large scale
+benchmark instances, we have applied a model transformation based on
+quasi-dependent variables~\cite{Herrera3}. 
+%
+%% Additionally, we have transformed each setting, where we have detected and reduced the number of 
+%% quasi-dependent variables. 
+The results for both, original and transformed networks, are reported in 
+Table~\ref{Table1}. In this table, we compare the analysis runtime needed by the model checker 
+SpaceEx~\cite{Frehse,bogomolov-et-al-sttt2015,DBLP:conf/hvc/BogomolovFGGPPS14}
+%%  in 2,000 iterations
  for the original and the transformed networks (the latter denoted in the table by the suffix K). 
-Note that transformed models use only one clock for the CMs and one clock for the SMs. 
+Note that transformed models use only one clock for the CMs and one clock for the SMs.
+%
+We observe that the transformation leads to a drastic performance improvement.  
 
-We refer the interested reader to~\cite{Herrera3} for a detailed explanation regarding the reduction of the 
-verification runtime in models transformed by the quasi-dependent variables approach.
+%% We refer the interested reader to~\cite{Herrera3} for a detailed explanation regarding the reduction of the 
+%% verification runtime in models transformed by the quasi-dependent variables approach.
   
 \begin{table}[t!]
 \centering
