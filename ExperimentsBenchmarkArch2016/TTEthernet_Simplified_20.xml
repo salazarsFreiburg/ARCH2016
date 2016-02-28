@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<sspaceex xmlns="http://www-verimag.imag.fr/xml-namespaces/sspaceex" version="0.2" math="SpaceEx">
+  <component id="CM1">
+    <param name="x_CM1" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="sync" type="label" local="false" />
+    <param name="send" type="label" local="false" />
+    <param name="delay" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="max_drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="SM10_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="SM11_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <location id="1" name="receive" x="233.0" y="134.0" width="114.0" height="88.0">
+      <invariant>x_CM1&lt;=0</invariant>
+      <flow>x_CM1'==1 &amp;
+CM1' ==0</flow>
+    </location>
+    <location id="2" name="correct" x="615.0" y="135.0" width="108.0" height="86.0">
+      <invariant>x_CM1&lt;=0</invariant>
+      <flow>x_CM1'==1 &amp;
+CM1' ==0</flow>
+    </location>
+    <location id="3" name="waiting" x="237.0" y="284.0" width="136.0" height="84.0">
+      <invariant>x_CM1&lt;= delay</invariant>
+      <flow>x_CM1'==1 &amp;
+CM1' ==0</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <labelposition x="-62.0" y="-28.0" width="144.0" height="76.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <guard>x_CM1&gt;= delay</guard>
+      <assignment>CM1:= (SM10_x +SM11_x)/2 &amp;
+x_CM1:=0</assignment>
+      <labelposition x="49.0" y="-39.0" width="196.0" height="78.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-81.0" y="-40.0" width="84.0" height="50.0" />
+      <middlepoint x="617.0" y="283.5" />
+    </transition>
+  </component>
+  <component id="CM2">
+    <param name="x_CM2" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="sync" type="label" local="false" />
+    <param name="send" type="label" local="false" />
+    <param name="delay" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="max_drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="SM10_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="SM11_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <location id="1" name="receive" x="233.0" y="134.0" width="114.0" height="88.0">
+      <invariant>x_CM2&lt;=0</invariant>
+      <flow>x_CM2'==1 &amp;
+CM2' ==0</flow>
+    </location>
+    <location id="2" name="correct" x="615.0" y="135.0" width="108.0" height="86.0">
+      <invariant>x_CM2&lt;=0</invariant>
+      <flow>x_CM2'==1 &amp;
+CM2' ==0</flow>
+    </location>
+    <location id="3" name="waiting" x="237.0" y="284.0" width="136.0" height="84.0">
+      <invariant>x_CM2&lt;= delay</invariant>
+      <flow>x_CM2'==1 &amp;
+CM2' ==0</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <labelposition x="-62.0" y="-28.0" width="144.0" height="76.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <guard>x_CM2&gt;= delay</guard>
+      <assignment>CM2:= (SM10_x +SM11_x)/2 &amp;
+x_CM2:=0</assignment>
+      <labelposition x="62.0" y="-37.0" width="180.0" height="72.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-81.0" y="-40.0" width="84.0" height="50.0" />
+      <middlepoint x="617.0" y="283.5" />
+    </transition>
+  </component>
+  <component id="SM1">
+    <param name="SM1_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM1_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM1_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM1_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM1_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM1_x:= SM1_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM2">
+    <param name="SM2_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM2_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM2_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM2_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM2_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM2_x:= SM2_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM3">
+    <param name="SM3_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM3_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM3_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM3_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM3_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM3_x:= SM3_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM4">
+    <param name="SM4_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM4_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM4_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM4_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM4_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM4_x:= SM4_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM5">
+    <param name="SM5_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM5_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM5_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM5_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM5_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM5_x:= SM5_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM6">
+    <param name="SM6_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM6_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM6_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM6_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM6_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM6_x:= SM6_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM7">
+    <param name="SM7_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM7_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="168.0" height="84.0">
+      <flow>SM7_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM7_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM7_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM7_x:= SM7_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM8">
+    <param name="SM8_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM8_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM8_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM8_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM8_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM8_x:= SM8_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM9">
+    <param name="SM9_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM9_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM9_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM9_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM9_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM9_x:= SM9_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM10">
+    <param name="SM10_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM10_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM10_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM10_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM10_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM10_x:= SM10_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM11">
+    <param name="SM11_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM11_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM11_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM11_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM11_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM11_x:= SM11_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM12">
+    <param name="SM12_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM12_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM12_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM12_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM12_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM12_x:= SM12_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM13">
+    <param name="SM13_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM13_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM13_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM13_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM13_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM13_x:= SM13_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM14">
+    <param name="SM14_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM14_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM14_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM14_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM14_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM14_x:= SM14_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM15">
+    <param name="SM15_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM15_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM15_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM15_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM15_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM15_x:= SM15_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM16">
+    <param name="SM16_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM16_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM16_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM16_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM16_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM16_x:= SM16_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM17">
+    <param name="SM17_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM17_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM17_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM17_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM17_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM17_x:= SM17_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM18">
+    <param name="SM18_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM18_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM18_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM18_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM18_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM18_x:= SM18_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM19">
+    <param name="SM19_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM19_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM19_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM19_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM19_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM19_x:= SM19_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="SM20">
+    <param name="SM20_x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="send" type="label" local="false" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="back" type="label" local="false" />
+    <param name="sync" type="label" local="false" />
+    <location id="1" name="send" x="275.0" y="111.0" width="152.0" height="92.0">
+      <flow>SM20_x'==1</flow>
+    </location>
+    <location id="2" name="sync" x="647.0" y="112.0" width="144.0" height="88.0">
+      <flow>SM20_x'==1</flow>
+    </location>
+    <location id="3" name="work" x="276.0" y="259.0" width="160.0" height="92.0">
+      <flow>SM20_x'== 1</flow>
+    </location>
+    <transition source="1" target="2">
+      <label>sync</label>
+      <assignment>SM20_x:=(CM1 + CM2)/2</assignment>
+      <labelposition x="-104.0" y="-24.0" width="214.0" height="54.0" />
+    </transition>
+    <transition source="3" target="1">
+      <label>send</label>
+      <assignment>SM20_x:= SM20_x +drift</assignment>
+      <labelposition x="12.0" y="-20.0" width="170.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>back</label>
+      <labelposition x="-177.0" y="-47.0" width="174.0" height="50.0" />
+      <middlepoint x="646.5" y="257.5" />
+    </transition>
+  </component>
+  <component id="Time">
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="trans" type="label" local="true" />
+    <location id="1" name="timing" x="219.0" y="212.0">
+      <invariant>t&lt;=1000</invariant>
+      <flow>t'==1</flow>
+    </location>
+    <transition source="1" target="1">
+      <label>trans</label>
+      <guard>t&gt;=1000</guard>
+      <assignment>t:=0</assignment>
+      <labelposition x="49.0" y="-20.0" width="90.0" height="50.0" />
+    </transition>
+  </component>
+  <component id="System">
+    <param name="SM3_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="CM1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="sync" type="label" local="false" />
+    <param name="send" type="label" local="false" />
+    <param name="back" type="label" local="false" />
+    <param name="CM2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM1_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="drift" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="SM2_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM4_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM5_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM6_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM7_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM8_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM9_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM10_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM11_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM12_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM13_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM14_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM15_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM16_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM17_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM18_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM19_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="SM20_x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="delay" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="max_drift" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <bind component="SM1" as="SM1_1" x="262.0" y="206.0">
+      <map key="SM1_x">SM1_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM2" as="SM2_1" x="337.0" y="206.0">
+      <map key="SM2_x">SM2_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM3" as="SM3_1" x="411.0" y="206.0">
+      <map key="SM3_x">SM3_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM4" as="SM4_1" x="495.0" y="206.0">
+      <map key="SM4_x">SM4_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM5" as="SM5_1" x="576.0" y="206.0">
+      <map key="SM5_x">SM5_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM6" as="SM6_1" x="264.0" y="355.0">
+      <map key="SM6_x">SM6_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM7" as="SM7_1" x="342.0" y="355.0">
+      <map key="SM7_x">SM7_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM8" as="SM8_1" x="414.0" y="353.0">
+      <map key="SM8_x">SM8_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM9" as="SM9_1" x="496.0" y="354.0">
+      <map key="SM9_x">SM9_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM10" as="SM10_1" x="589.0" y="352.0">
+      <map key="SM10_x">SM10_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM11" as="SM11_1" x="266.0" y="509.0">
+      <map key="SM11_x">SM11_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM12" as="SM12_1" x="348.0" y="503.0">
+      <map key="SM12_x">SM12_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM13" as="SM13_1" x="419.0" y="501.0">
+      <map key="SM13_x">SM13_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM14" as="SM14_1" x="496.0" y="498.0">
+      <map key="SM14_x">SM14_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM15" as="SM15_1" x="594.0" y="501.0">
+      <map key="SM15_x">SM15_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM16" as="SM16_1" x="269.0" y="660.0">
+      <map key="SM16_x">SM16_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM17" as="SM17_1" x="347.0" y="662.0">
+      <map key="SM17_x">SM17_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM18" as="SM18_1" x="420.0" y="655.0">
+      <map key="SM18_x">SM18_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM19" as="SM19_1" x="499.0" y="653.0">
+      <map key="SM19_x">SM19_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="SM20" as="SM20_1" x="592.0" y="654.0">
+      <map key="SM20_x">SM20_x</map>
+      <map key="send">send</map>
+      <map key="CM1">CM1</map>
+      <map key="CM2">CM2</map>
+      <map key="drift">drift</map>
+      <map key="back">back</map>
+      <map key="sync">sync</map>
+    </bind>
+    <bind component="Time" as="Time_1" x="253.0" y="790.0">
+      <map key="t">t</map>
+    </bind>
+    <bind component="CM1" as="CM1_1" x="277.0" y="66.0">
+      <map key="CM1">CM1</map>
+      <map key="sync">sync</map>
+      <map key="send">send</map>
+      <map key="delay">delay</map>
+      <map key="back">back</map>
+      <map key="max_drift">max_drift</map>
+      <map key="SM10_x">SM10_x</map>
+      <map key="SM11_x">SM11_x</map>
+    </bind>
+    <bind component="CM2" as="CM2_1" x="364.0" y="66.0">
+      <map key="CM2">CM2</map>
+      <map key="sync">sync</map>
+      <map key="send">send</map>
+      <map key="delay">delay</map>
+      <map key="back">back</map>
+      <map key="max_drift">max_drift</map>
+      <map key="SM10_x">SM10_x</map>
+      <map key="SM11_x">SM11_x</map>
+    </bind>
+  </component>
+</sspaceex>
+

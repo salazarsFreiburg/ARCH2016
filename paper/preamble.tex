@@ -1,0 +1,308 @@
+% precompiled preamble a la
+%
+% http://magic.aladdin.cs.cmu.edu/2007/11/02/precompiled-preamble-for-latex/
+%
+% commands:
+%   pdflatex -ini -jobname="main" "&pdflatex preamble.tex\dump"
+%   pdflatex -parse-first-line main.tex
+%
+% - -parse-first-line not needed with TeXlive 2011
+% - for latex(1) instead of pdflatex(1), all three occurrences must be
+%   replaced
+%
+%\documentclass[runningheads,orivec]{llncs}
+\documentclass{easychair}
+
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{backgrounds,fit,decorations.pathreplacing,snakes,arrows,shapes,automata}
+\usetikzlibrary{patterns}
+%\usepgfplotslibrary{external}\tikzexternalize
+\usepackage{ifthen}
+\usepackage{ifpdf}
+\usepackage{easpc}
+\usepackage{qex}
+\usepackage{lskframe}
+
+\ifpdf
+\relax
+\else
+\usepackage{pstricks,pst-node}
+\fi
+
+
+
+
+
+\title{Benchmark for Verification of Fault-Tolerant Clock Synchronization Algorithms\\
+\normalsize (Benchmark Proposal)}
+\author{%
+  Sergiy Bogomolov$^{\ddagger}$
+  \and
+  Christian Herrera$^{\star}$
+  \and
+  Wilfried Steiner$^{\dagger}$}
+\titlerunning{Benchmark for Verification of Fault-Tolerant Clock Sync. Algorithms}
+\authorrunning{Bogomolov, Herrera and Steiner}
+\institute{%
+  $^{\star}$~Albert-Ludwigs-Universit\"at Freiburg, Freiburg, Germany \\
+  $^{\dagger}$~TTTech Computertechnik AG, Chip IP Design, Vienna, Austria \\
+  $^{\ddagger}$~IST Austria, Vienna, Austria
+} 
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\makeatletter
+\newcommand{\todo@box}[1]{\fcolorbox{green!50!black}{green!50!white}{#1}}
+\newcommand{\todo}[1]{%
+  \begin{center}
+  \normalfont%
+  \todo@box{\parbox{0.9\textwidth}{\color{black}{\bf TODO}: #1}}
+  \end{center}}
+\makeatother
+
+
+% % prelim.tex  % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\newcommand{\ofsane}[1]{\ifthenelse{\equal{#1}{(}}{\errmessage{Hups, '(' as of-macro parameter?}}{}}
+
+\newcommand{\clks}{\mathcal{X}}
+\newcommand{\someclks}{X}
+\newcommand{\somevars}{V}
+\newcommand{\someclksY}{Y}
+\newcommand{\clk}{x}
+\newcommand{\otherclk}{y}
+\newcommand{\thirdclk}{z}
+\newcommand{\QE}{\mathcal{QE}}
+%
+\newcommand{\vars}{\mathcal{V}}
+\newcommand{\var}{v}
+%
+\newcommand{\intexpr}{\psi_\mathit{int}}
+%
+\newcommand{\Xconstrs}[2][]{\Phi_{#1}(#2)}
+\newcommand{\constr}[1][]{\varphi\ifthenelse{\equal{#1}{}}{}{_#1}}
+\newcommand{\cconstrs}{\Xconstrs{\clks}}
+\newcommand{\cconstr}{\constr_\mathit{clk}}
+\newcommand{\vconstrs}{\Xconstrs{\vars}}
+\newcommand{\vconstr}{\constr_\mathit{int}}
+\newcommand{\constrs}[1][]{\Xconstrs[#1]{\clks,\vars}}
+%
+\newcommand{\val}{\nu}
+\newcommand{\Time}{\mathit{Time}}
+%
+\newcommand{\clocksofX}[1]{\ofsane{#1}\mathit{clocks}(#1)}
+\newcommand{\clocksofta}[1][\ta]{\ofsane{#1}\clks(#1)}
+\newcommand{\clocksofrvec}[1][\rvec]{\clocksofX{#1}}
+\newcommand{\clocksofconstr}[1][]{\clocksofX{\constr[#1]}}
+\newcommand{\varsofX}[1]{\ofsane{#1}\mathit{vars}(#1)}
+\newcommand{\varsofrvec}[1][\rvec]{\varsofX{#1}}
+\newcommand{\varsofconstr}[1][]{\varsofX{\constr[#1]}}
+
+
+\newcommand{\locs}{L}
+\newcommand{\locsv}{L^{\triangledown}}
+\newcommand{\vnstY}[1]{\mathit{vnst}_#1}
+\newcommand{\loc}{\ell}
+\newcommand{\locv}{\ell_{\triangledown}}
+\newcommand{\locva}[1]{\ell_{\triangledown,#1}}
+\newcommand{\iloc}[2][]{\loc_{\mathit{ini{#2}\ifthenelse{\equal{#1}{}}{}{#1}}}}
+\newcommand{\nstloc}[2][]{\loc_{\mathit{nst{#2}\ifthenelse{\equal{#1}{}}{}{#1}}}}
+\newcommand{\tokY}[1][]{\mathit{t}_#1}
+\newcommand{\acts}{B}
+\newcommand{\comls}{C}
+\newcommand{\act}{\alpha}
+\newcommand{\locinv}{I}
+\newcommand{\edges}{E}
+\newcommand{\edge}{e}
+\newcommand{\bcacts}{\mathcal{B}}
+%
+\newcommand{\ta}{\mathcal{A}}
+%
+\newcommand{\tatupleA}[1][]{%
+  (\locs_{#1},\acts_{#1},\clks_{#1},\vars_{#1},}
+\newcommand{\tatupleB}[1][]{%
+  \locinv_{#1},\edges_{#1},\iloc{})}
+\newcommand{\tatuple}[1][]{%
+  \tatupleA[#1]\tatupleB[#1]}
+%
+\newcommand{\rs}{\mathcal{R}(\clks,\vars)}
+\newcommand{\rvec}{\vec{r}}
+\newcommand{\lvec}{\vec{\loc}}
+%
+\newcommand{\true}{\mathit{true}}
+\newcommand{\false}{\mathit{false}}
+%
+\newcommand{\edgetuple}[1][]{(\loc_{#1},\act_{#1},\constr_{#1},\rvec_{#1},\loc'_{#1})}
+\newcommand{\edgetuplesimpl}{(\loc,\act,\constr,\langle\clk:=0\rangle,\loc')}
+\newcommand{\otheredgetuple}[1][]{(\hat{\loc}_{#1},\hat{\act}_{#1},\hat{\constr}_{#1},\hat{\rvec}_{#1},\hat{\loc}'_{#1})}
+\newcommand{\otheredgetupleRO}[1][]{(\hat{\loc}_{#1},r_{W}!,\hat{\constr}_{#1},\hat{\rvec}_{#1},\hat{\loc}'_{#1})}
+\newcommand{\otheredgetupleRI}[1][]{(\hat{\loc}_{#1},r_{W}?,\hat{\constr}_{#1},\hat{\rvec}_{#1},\hat{\loc}'_{#1})}
+\newcommand{\otheredgetupleI}[1][]{(\hat{\loc}_{#1},reset_{W}?,\hat{\constr}_{#1},\hat{\rvec}_{#1},\hat{\loc}'_{#1})}
+\newcommand{\otheredgetupleO}[1][]{(\loc_{\resetter{#1}},reset_{#1}!,\hat{\constr}_{#1},\hat{\rvec}_{#1},\nstloc[\resetter{#1}])}
+\newcommand{\otheredgetupleR}[1][]{(\ilocR{#1},r_{W}?,\true,\emptyset,\nstlocR{#1})}
+%
+\newcommand{\locsof}[1]{\ofsane{#1}\locs(#1)}
+%\newcommand{\ilocof}[1]{\ofsane{#1}\iloc(#1)}
+\newcommand{\edgesof}[1]{\ofsane{#1}\edges(#1)}
+\newcommand{\varsof}[1]{\ofsane{#1}\vars(#1)}
+\newcommand{\actsof}[1]{\ofsane{#1}\acts(#1)}
+
+\newcommand{\lts}[1]{\ofsane{#1}\mathcal{T}(#1)}
+%
+\newcommand{\confs}[1]{\ofsane{#1}\mathit{Conf}(#1)}
+%\newcommand{\confln}[2]{\langle{#1},{#2}\rangle}
+\newcommand{\conf}{c}
+\newcommand{\tsconf}{s}
+\newcommand{\tsconfdev}{\langle\loc_{\tsconf},\valof{\tsconf}\rangle}
+\newcommand{\othertsconf}{r}
+\newcommand{\othertsconfdev}{\langle\loc_{\othertsconf},\valof{\othertsconf}\rangle}
+%
+\newcommand{\iconfs}[1][]{\mathcal{C}_\mathit{ini\ifthenelse{\equal{#1}{}}{}{,#1}}}
+%
+\newcommand{\labs}{\Lambda}
+\newcommand{\lab}{\lambda}
+%
+\newcommand{\trans}[1]{\xrightarrow{#1}}
+\newcommand{\texttrans}[1]{\mathrel{\smash[t]{\trans{#1}}}}
+%
+\newcommand{\locof}[1]{\ofsane{#1}\loc_{#1}}
+\newcommand{\valof}[1]{\ofsane{#1}\val_{#1}}
+\newcommand{\confln}[1]{\langle\lvec_{#1}, \valof{#1}\rangle}
+%
+
+\newcommand{\comp}{\sigma}
+\newcommand{\comps}[1]{\ofsane{#1}\Pi(#1)}
+%
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\natplus}{\nat^{>0}}
+\newcommand{\natnull}{\nat_0}
+
+\newcommand{\parcmp}{\mathrel{\|}}
+
+\newcommand{\nta}{\mathcal{N}}
+\newcommand{\mta}{\mathcal{M}}
+\newcommand{\sta}{\mathcal{S}}
+
+\newcommand{\res}[1]{\mathcal{RES}_{#1}(\nta)}
+\newcommand{\nden}[3][\nta]{\mathcal{DE}^{#2}_{#3}(#1)}
+\newcommand{\nde}[3][\ta]{\mathcal{DE}^{#2}_{#3}(#1)}
+\newcommand{\lsren}[3][\nta]{\mathcal{LS}^{#2}_{#3}(#1)}
+\newcommand{\lcren}[3][\nta]{\mathcal{LC}^{#2}_{#3}(#1)}
+\newcommand{\lsre}[2]{\mathcal{LS}^{#1}_{#2}}
+\newcommand{\lcre}[2]{\mathcal{LC}^{#1}_{#2}}
+\newcommand{\lre}[3][\ta]{\mathcal{LE}^{#2}_{#3}(#1)}
+\newcommand{\sre}[1]{\mathcal{SE}_{#1}}
+\newcommand{\sren}[3][\nta]{\mathcal{SE}^{#2}_{#3}(#1)}
+\newcommand{\cre}[1]{\mathcal{CE}_{#1}}
+\newcommand{\cren}[3][\nta]{\mathcal{CE}^{#2}_{#3}(#1)}
+\newcommand{\re}[2][]{\mathcal{E}^{#1}_{#2}}
+\newcommand{\ren}[3][\nta]{\mathcal{E}^{#2}_{#3}(#1)}
+\newcommand{\ul}[1]{\Xi_{#1}}
+\newcommand{\congr}[1][\ec]{\equiv_{#1}}
+\newcommand{\congrW}[1][W]{\equiv_{#1}}
+\newcommand{\hautomaton}{\mathcal{H}}
+% % qe.tex  % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\newcommand{\qe}{\simeq}
+
+\newcommand{\ecs}[1][\nta]{\mathcal{EC}_{#1}}
+%
+\newcommand{\ec}{Y}
+\newcommand{\ecX}{X}
+\newcommand{\otherec}{W}
+\newcommand{\rep}{\mathit{rep}}
+\newcommand{\seq}[1]{\mathcal{S}_{#1}}
+\newcommand{\pt}[1]{\mathcal{P}_{#1}}
+\newcommand{\repifynull}{\Gamma_{0}}
+\newcommand{\repifyinv}{\Gamma_{\mathit{inv}}}
+\newcommand{\repifygrd}{\Gamma}
+\newcommand{\repifyct}{\Gamma_{\mathit{c\cdot t}}}
+
+% % wellform.tex  % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\newcommand{\Xrloc}[2][]{\mathcal{RL}_{#2}#1}%\ifthenelse{\equal{#2}{\ec}}{(\nta)}{}}
+\newcommand{\Nrloc}[2][]{\mathcal{NL}_{#2}#1}%
+\newcommand{\rloc}[1]{\Xrloc[^-]{#1}}
+\newcommand{\rsuccloc}[1]{\Xrloc[^+]{#1}}
+
+\newcommand{\alg}{\mathcal{K}}
+%
+\newcommand{\resetter}[1]{\mathcal{R}_{#1}}
+\newcommand{\ilocR}[1]{\iloc{\resetter{#1}}}
+\newcommand{\locR}[1]{\loc_{\resetter{#1}}}
+\newcommand{\nstlocR}[1]{\nstloc{\resetter{#1}}}
+\newcommand{\rstX}[2][\ec]{\mathit{rst}_{#1}^{#2}}
+\newcommand{\rstI}[1][\ec]{\rstX[#1]{I}}
+\newcommand{\rstO}[1][\ec]{\rstX[#1]{O}}
+%
+\newcommand{\rstIOupd}[1][\edge]{\rho_{#1}}
+%
+\newcommand{\reset}[1][\ec]{\mathit{reset}_{#1}}
+\newcommand{\return}[1][\ec]{\mathit{return}_{#1}}
+\newcommand{\rY}[1][\ec]{\mathit{r}_{#1}}
+\newcommand{\uY}[1][\ec]{\mathit{u}_{#1}}
+
+% % bisim.tex % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\newcommand{\sconf}[1]{\mathcal{SC}_{\nta}^{#1}}%\ifthenelse{\equal{#1}{\ec}}{(\nta)}{}}
+\newcommand{\dedges}[1]{\mathcal{DE}_{#1}}%\ifthenelse{\equal{#1}{\ec}}{(\nta)}{}}
+\newcommand{\othersconf}[1]{\mathcal{SC}_{\nta'}^{#1}}
+\newcommand{\Xrseq}[1]{\mathcal{RS}_{#1}}
+\newcommand{\rseq}[1]{\Xrseq{#1}}
+\newcommand{\rseqpure}[1]{\Xrseq{#1}^\mathit{pure}}
+\newcommand{\rseqfullpure}[1]{\Xrseq{#1}^\mathit{full}}
+\newcommand{\rseqimpure}[1]{\Xrseq{#1}^\mathit{impure}}
+
+\newcommand{\bigtrans}[1]{\xRightarrow{#1}}
+\newcommand{\bigtexttrans}[1]{\mathrel{\smash[t]{\xRightarrow{#1}}}}
+%
+\newcommand{\Xbsreach}{$\Rightarrow$-reach}
+\newcommand{\bsreach}{\Xbsreach{}able}
+\newcommand{\bsreaches}{\Xbsreach{}es}
+
+%\newcommand{\BF}{\mathit{BF}}
+\newcommand{\BF}{\beta}
+\newcommand{\BFof}{\beta}
+\newcommand{\CF}{\mathit{CF}}
+\newcommand{\EPF}{\mathit{EPF}}
+\newcommand{\epfq}[1]{\mathop{\existsOooginool\Diamond} #1}
+
+
+\newcommand{\wbisimrel}{\mathcal{S}}
+\newcommand{\sbisimrel}{\mathcal{S}_{\mathit{str}}}
+%\newcommand{\wbisim}{\simeq_\mathit{w}}
+
+\newcommand{\revqe}{\mathit{reverseQE}}
+\newcommand{\funqe}{\mathit{QE}}
+\newcommand{\devqe}{\mathit{devirQE}}
+%
+\newcommand{\cons}[1]{\mathit{CONS}_{#1}}
+\newcommand{\stable}{\mathit{stable}}
+\newcommand{\predelaytrafo}{Z}
+
+% % qeproperties.tex  % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\newcommand{\Omg}{\Omega}
+\newcommand{\XC}{\mathcal{XC}}
+\newcommand{\QC}{\mathcal{QC}}
+\newcommand{\CC}{\mathcal{CC}}
+\newcommand{\Shi}{\Xi}
+\newcommand{\Del}{\Delta}
+
+% % diamond.tex  % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\newcommand{\Z}{\mathcal{Z}}
+\newcommand{\grph}{G=(V,E)}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\newcommand{\repval}[4][\val]{#1#3_{#4,\mathit{rep}_{#2}}}
+\newcommand{\ECval}[4][\val]{#1#3_{#4,\mathit{QE}_{#2}}}
+\newcommand{\nonECval}[4][\val]{#1#3_{#4,\mathit{c}_{#2}}}
+\newcommand{\tksval}[2][\val]{#1_{#2,\mathit{tks}}}
+
+\def\preambleloaded{Precompiled preamble loaded.}

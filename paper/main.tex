@@ -1,0 +1,39 @@
+%&main - vim:foldmethod=marker commentstring=%%s foldmarker=<@<,>@>
+
+\def\ifundefined#1{\expandafter\ifx\csname#1\endcsname\relax}
+\ifundefined{preambleloaded}\input{preamble}\else\typeout{\preambleloaded}\fi
+
+\newenvironment{surgery}{
+  \bigskip\hrule\medskip\hrule\smallskip\hrule\bigskip
+}{
+  \bigskip\hrule\smallskip\hrule\medskip\hrule\bigskip
+}
+
+%%\renewcommand{\todo}[1]{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In this paper, we propose a benchmark for verification of properties of fault-tolerant clock
+synchronization algorithms, namely, a benchmark of a TTEthernet network, 
+where properties of the clock synchronization algorithm as implemented in a 
+TTEthernet network can be verified, and 
+optimization techniques for verification purposes can be applied. Our benchmark, 
+which assumes non-faulty components, aims to be a basis for
+verifying configurations which include faulty components, information consistency
+mechanisms, and for verifying other clock synchronization algorithms.
+
+\end{abstract}
+
+ 
+\input{intro}
+\clearpage
+\bibliographystyle{plain}
+\bibliography{main}
+\clearpage
+\end{document}
+
+
+
