@@ -1,5 +1,6 @@
 \section{Introduction}
 \label{sec:intro}
+\footnotetext[1]{CONACYT (Mexico) and DAAD (Germany) sponsor the work of this author.}
 
 Distributed real-time systems are present in many commercial hardware and software 
 products, e.g. the avionics of the \emph{Orion Space Program}~\cite{Howard}. 
@@ -16,7 +17,7 @@ the periodic synchronization of the physical local clock of each component.
 This synchronization is performed by an internal clock synchronization algorithm~\cite{Kopetz} 
 which compensates for the physical
 imperfections of these clocks. The maximal difference between the values of 
-two logical clocks of two SMs is the \emph{precision} achieved by the algorithm.
+two logical clocks of two components is the \emph{precision} achieved by the algorithm.
 
 A typical TTEthernet \emph{network} consists of switches and end systems connected by a communication channel,
 i.e. a bidirectional point-to-point link. A \emph{standard configuration} consists of end systems 
@@ -39,8 +40,7 @@ Section 4 presents the results of our experiments. We conclude in Section 5.
 \section{Clock Synchronization Overview}
 \label{sec:clocksyncoverview}
 
-Following~\cite{Steiner2} we model a network with a fault-tolerant configuration 
-consisting of two switches and five end systems, which in our benchmark assume 
+In a network with a fault-tolerant configuration, switches and end systems assume 
 the roles of \emph{Compression Master} (CM), and \emph{Synchronization Master} (SM), 
 respectively. Furthermore, each SM is connected to each CM by one and only one communication channel.
 In the clock synchronization algorithm which we use, SMs and CMs send information to each other, 
@@ -123,13 +123,13 @@ some possible extensions.
 \end{figure}%>@>
 
 In the following, we use the definitions of hybrid automata as described in~\cite{Herrera3}.
-For simplicity we propose a network of hybrid automata using a fault-tolerant configuration
+For simplicity we propose a typical industrial network of hybrid automata using a fault-tolerant configuration
 with two CMs, namely, $\mathit{CM1}$ and $\mathit{CM2}$, 
 and five SMs from $\mathit{SM1}$ to $\mathit{SM5}$. 
 In Figure~\ref{fig1} automaton $\mathit{CM1}$ consists of the 
-real variables $x$ (the local clock), and $\mathit{cm1}$ which stores the result of the first compression function, and 
+real variables $x$ (the local clock with \emph{rate} 1), and $\mathit{cm1}$ which stores the result of the first compression function, and 
 the locations $\mathit{waiting}$ (initial), $\mathit{receive}$ and $\mathit{correct}$, while 
-automaton $\mathit{SM3}$ consists of the real variables $\mathit{sm3}$ (the local clock);  \emph{drift3}  which ranges from 
+automaton $\mathit{SM3}$ consists of the real variables $\mathit{sm3}$ (the local clock with rate 1);  \emph{drift3}  which ranges from 
 $-\mathit{maxdrift}$ to $\mathit{maxdrift}$, where $\mathit{maxdrift}$ describes the absolute value of the maximum 
 drift offset that a SM's clock can achieve before the execution of the synchronization algorithm, 
 and the locations $\mathit{work}$ (initial), $\mathit{send}$ 
@@ -138,7 +138,7 @@ by using edges in SMs and CMs labeled with $\mathit{snd}$ and $\mathit{sync}$.
 The rest of the CMs and SMs follow a similar structure.
 
 At the start of the system each automaton delays exactly $\mathit{delay}$ time units, 
-with $\mathit{delay}>0$, at the only location where a delay greater than 0 time units is possible, namely, at 
+with $\mathit{delay}>0$, at the unique location where a delay greater than 0 time units is possible, namely, at 
 its initial location. Then after this delay 
 the CMs and SMs respectively transit simultaneously to locations $\mathit{receive}$ and 
 $\mathit{send}$ by taking the edges labeled with $\mathit{snd}$.
@@ -159,7 +159,7 @@ consistency mechanisms for detecting PCFs from faulty components are not include
 
 Our benchmark is a candidate for the optimization techniques that we have presented in~\cite{Herrera3}, namely,
 detection and reduction of quasi-dependent variables. Quasi-dependency of variables is a generalization 
-of \emph{quasi-equality} of clocks~\cite{Herrera}. Intuitively, between two variables $\clk$ and $\otherclk$ 
+of \emph{quasi-equality} of clocks~\cite{Herrera,Herrera2,Herrera4}. Intuitively, between two variables $\clk$ and $\otherclk$ 
 of a hybrid automaton $\hautomaton$, there exists a quasi-dependency, namely, $\clk$ quasi-depends
 on $\otherclk$ via function $f$, if and only if at all runs of $\hautomaton$ and at all points in time,
 the value of $\clk$ is the value of $f$ applied to the value of $\otherclk$, except when the value of 
@@ -194,6 +194,15 @@ with quasi-equal clocks as described in~\cite{Herrera4}, and
 \item  it can be used for scalability analysis 
 by introducing additional CMs and SMs.
 \end{enumerate} 
+
+\subsection{Open Problems of the Benchmark}
+Note that in our benchmark we assume that the rate of each clock is 1. However, in practice this assumption
+may not always hold due to the imperfection of the physical clocks, for instance, the clock of a SM may have 
+rate 1 for at most $n$ time units before dropping below 1, that is, that clock will tick slower than rate 1 after $n$ time units.
+In this case a rate correction algorithm as in~\cite{Steiner3} will correct the rate of that clock. 
+A more realistic benchmark would consider scenarios where the clock of a given SM has several rates before the execution
+of the synchronization algorithm. However, remains unclear how to detect and reduce quasi-dependent variables in benchmarks with
+the mentioned scenarios, since that detection and reduction assumes that the rate of the variables in a model is constant at all points in time. Therefore, further studies wrt.\ quasi-dependent variables with different rates for the same variables are required.      
  
 \section{Experiments}
 In the following section, we present the results of our experiments, where our aim is to show that
@@ -202,7 +211,8 @@ in our benchmark we have: (a) verified that the precision of the synchronization
 We have verified the precision of the synchronization algorithm in settings of our benchmark with 2 CMs and from 5 to 30 SMs. 
 We recall that our benchmark is a fault-tolerant TTEthernet network with non-faulty components. 
 In this benchmark, we verify that the maximal difference between the values of any two logical clocks of two SMs is bounded by 
-$2*\mathit{maxdrift}$, as reported in~\cite{Steiner2}.
+$2*\mathit{maxdrift}$, as reported in~\cite{Steiner2}, 
+i.e.\ $\forall i\neq j\in\nat\bullet \ sm_i > sm_j \implies sm_i-sm_j \leq 2*\mathit{maxdrift} $.
 %
 In addition, in order to enable efficient handling of large scale
 benchmark instances, we have applied a model transformation based on
@@ -217,12 +227,12 @@ SpaceEx~\cite{Frehse,bogomolov-et-al-sttt2015,DBLP:conf/hvc/BogomolovFGGPPS14}
  for the original and the transformed networks (the latter denoted in the table by the suffix K). 
 Note that transformed models use only one clock for the CMs and one clock for the SMs.
 %
-We observe that the transformation leads to a drastic performance improvement.  
+We observe that the transformation leads to a drastic performance improvement due to the reduction of quasi-dependent variables.   
 
 %% We refer the interested reader to~\cite{Herrera3} for a detailed explanation regarding the reduction of the 
 %% verification runtime in models transformed by the quasi-dependent variables approach.
   
-\begin{table}[t!]
+\begin{table}[H]
 \centering
 \setlength{\tabcolsep}{4pt}
 %\raisebox{3ex}{%
@@ -249,7 +259,7 @@ We observe that the transformation leads to a drastic performance improvement.
   Row X-$N(K)$ gives the figures for case study X with $N$ components, the suffix `K' denotes the models after the quasi-dependent variables transformation, 
   %
   `C' gives the number of clocks in the model, 
-  `M' memory usage in MB,
+  `M' memory usage in MB for the analysis,
   and `$t(s)$' verification time in seconds.
   %
   Detection of clocks does not contribute to the verification time.
@@ -266,7 +276,9 @@ where properties of the TTEthernet network can be verified, and
 optimization techniques for verification purposes can be applied.  
 The  benchmark can incorporate new CMs and SMs and be used in scalability analysis. 
 Furthermore, our benchmark can be extended and used for verifying 
-synchronization algorithms under failures of its components.  
+synchronization algorithms under failures of its components. Interesting open problems
+wrt.\ this benchmark require further studies, e.g.\ clocks in components with multiples rates 
+for some time units and their implications wrt.\ detection and reduction of quasi-dependent variables. 
 
 
 
