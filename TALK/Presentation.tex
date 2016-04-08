@@ -186,8 +186,8 @@
  
 
 \begin{document}
-\title{\centering \textbf{Benchmark for Verification of Fault-Tolerant Clock\\
-Synchronization Algorithms}} 
+\title{\centering \textbf{Verification of Fault-Tolerant Clock\\
+Synchronization Algorithms\\ (Benchmark Proposal)}} 
 \author{\textcolor{red}{Sergiy Bogomolov$^{1}$, Christian Herrera$^{2}$ and Wilfried Steiner$^{3}$}  
 	\center{IST Austria$^{1}$, \\University of Freiburg$^{2}$, \\TTTech Computertechnik AG$^{3}$ }}
 \date{April 11th, 2016}
@@ -649,7 +649,7 @@ We propose a \emph{\textcolor{blue}{benchmark}} which can be used as a basis for
 				\emph{\textcolor{blue}{quasi-dependent variables}} in $\mathcal{N}$.
 	\item Given two variables \textcolor{blue}{$x$} and \textcolor{blue}{$y$}, \textcolor{blue}{$x$} quasi-depends
 on \textcolor{blue}{$y$} via function \textcolor{blue}{$f$}, if and only if \textcolor{blue}{$x=f(y)$} in all 
-runs of $\mathcal{N}$ and at all points in time.
+runs of $\mathcal{N}$ and at all points in time, except when \textcolor{blue}{$x$} and \textcolor{blue}{$y$} are updated.
 	\item[] \textcolor{white}{We obtain equivalence classes of quasi-dependent variables.} 
 	\item[] \textcolor{white}{We use only the representative clock of each class in a 
 				\textcolor{white}{transformed network} which satisfies the same properties as
@@ -664,7 +664,7 @@ runs of $\mathcal{N}$ and at all points in time.
 				\emph{\textcolor{blue}{quasi-dependent variables}} in $\mathcal{N}$.
 	\item Given two variables \textcolor{blue}{$x$} and \textcolor{blue}{$y$}, \textcolor{blue}{$x$} quasi-depends
 on \textcolor{blue}{$y$} via function \textcolor{blue}{$f$}, if and only if \textcolor{blue}{$x=f(y)$} in all 
-runs of $\mathcal{N}$ and at all points in time.
+runs of $\mathcal{N}$ and at all points in time, except when \textcolor{blue}{$x$} and \textcolor{blue}{$y$} are updated.
 	\item We obtain \textcolor{red}{equivalence classes} of quasi-dependent variables. 
 	\item We use only the \textcolor{red}{representative clock} of each class in a 
 				\textcolor{red}{transformed network} which satisfies the same properties as
@@ -679,24 +679,22 @@ runs of $\mathcal{N}$ and at all points in time.
   \centering
   %
   %
-  \begin{tabular}[b]{|r||r|r||r|r||r|r|}
+  \begin{tabular}[b]{|r||r|r||r|r|}
     \hline
     \multirow{2}{*}{} &
     \multicolumn{2}{|c||}{\scriptsize Clocks}  & 
-    \multicolumn{2}{|c||}{\scriptsize Memory (MB)}  & 
     \multicolumn{2}{|c|}{\scriptsize Run Time (sec.)} 
     \\ 
     \scriptsize Components
     &\scriptsize $\mathcal{N}$ &\scriptsize $\mathcal{N}'$  
-    &\scriptsize $\mathcal{N}$ &\scriptsize $\mathcal{N}'$  
     &\scriptsize $\mathcal{N}$ &\scriptsize $\mathcal{N}'$ 
     \\    \hline\hline 
-    \scriptsize 5 & \scriptsize 7 & \scriptsize 2 &\scriptsize \textcolor{white}{000,}3.0 &\scriptsize 2.9 &\scriptsize 31.32 
+    \scriptsize $5 + 2$ & \scriptsize 7 & \scriptsize 2 &\scriptsize 31.32 
     &\scriptsize 11.96
     \\    \hline 
-    \scriptsize 20 & \scriptsize 22 & \scriptsize 2 &\scriptsize 3.0&\scriptsize 3.0 &\scriptsize 124.08&\scriptsize 12.11
+    \scriptsize $20 + 2$ & \scriptsize 22 & \scriptsize 2  &\scriptsize 124.08&\scriptsize 12.11
     \\    \hline 
-    \scriptsize 30 & \scriptsize 32 &\scriptsize 2 &\scriptsize 3.1 &\scriptsize 3.0 &\scriptsize 201.21 &\scriptsize 12.57
+    \scriptsize $30 + 2$ & \scriptsize 32 &\scriptsize 2 &\scriptsize 201.21 &\scriptsize 12.57
     \\    \hline 
   \end{tabular}
   % 
