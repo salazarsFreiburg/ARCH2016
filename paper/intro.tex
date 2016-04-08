@@ -235,30 +235,29 @@ We observe that the transformation leads to a drastic performance improvement du
 \centering
 \setlength{\tabcolsep}{4pt}
 %\raisebox{3ex}{%
-\begin{tabular}[b]{ l r r r  | l r r r r r r }
+\begin{tabular}[b]{ l r r  | l r r r r r  }
 \hline\hline
-\multicolumn{1}{l}{ Network} & \multicolumn{1}{c}{{C}} & \multicolumn{1}{c}{M} &\multicolumn{1}{c|}{ $t(s)$}  \\[0.5ex]
-\cline{1-4}
- \textit{TT-5}   & \makebox[0pt][r]{7}& 3.0& 31.32	&\textit{}   & &  &  	\\
- \textit{TT-5K}   & \makebox[0pt][r]{2}&  2.9&  11.96&\textit{}   & &  &  	\\
- \textit{TT-20}   & \makebox[0pt][r]{22}&  3.0&  124.08	
+\multicolumn{1}{l}{ Network} & \multicolumn{1}{c}{{C}} &\multicolumn{1}{c|}{ $t(s)$}  \\[0.5ex]
+\cline{1-3}
+ \textit{TT-5}   & \makebox[0pt][r]{7}& 31.32	&\textit{}   & &  &  	\\
+ \textit{TT-5K}   & \makebox[0pt][r]{2}&   11.96&\textit{}   & &  &  	\\
+ \textit{TT-20}   & \makebox[0pt][r]{22}&   124.08	
   &\multicolumn{4}{l}{\quad\footnotesize
     Experimental environment: Intel~i3,}  	\\
- \textit{TT-20K}   & \makebox[0pt][r]{2}& 3.0& 12.11 
+ \textit{TT-20K}   & \makebox[0pt][r]{2}&  12.11 
   &\multicolumn{4}{l}{\quad\footnotesize
     2.3\,GHz, 3\,GB, Ubuntu~11.04,}  	\\
- \textit{TT-30}   & \makebox[0pt][r]{32}& 3.1& 201.21
+ \textit{TT-30}   & \makebox[0pt][r]{32}&  201.21
   &\multicolumn{4}{l}{\quad\footnotesize
     SpaceEx server VM (VMX) v0.9.8b / PHAVer scenario.}  	\\
- \textit{TT-30K}   & \makebox[0pt][r]{2}& 3.0& 12.57  \\
-\cline{1-4}
+ \textit{TT-30K}   & \makebox[0pt][r]{2}&  12.57  \\
+\cline{1-3}
 \end{tabular}
 
 \caption{
   Row X-$N(K)$ gives the figures for case study X with $N$ components, the suffix `K' denotes the models after the quasi-dependent variables transformation, 
   %
-  `C' gives the number of clocks in the model, 
-  `M' memory usage in MB for the analysis,
+  `C' gives the number of clocks in the model
   and `$t(s)$' verification time in seconds.
   %
   Detection of clocks does not contribute to the verification time.
