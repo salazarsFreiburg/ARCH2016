@@ -188,7 +188,7 @@
 \begin{document}
 \title{\centering \textbf{Verification of Fault-Tolerant Clock\\
 Synchronization Algorithms\\ (Benchmark Proposal)}} 
-\author{\textcolor{red}{Sergiy Bogomolov$^{1}$, Christian Herrera$^{2}$ and Wilfried Steiner$^{3}$}  
+\author{\textcolor{red}{{\bf{Sergiy Bogomolov}}$^{1}$, Christian Herrera$^{2}$ and Wilfried Steiner$^{3}$}  
 	\center{IST Austria$^{1}$, \\University of Freiburg$^{2}$, \\TTTech Computertechnik AG$^{3}$ }}
 \date{April 11th, 2016}
 \begin{frame}
@@ -196,41 +196,41 @@ Synchronization Algorithms\\ (Benchmark Proposal)}}
 \end{frame}
  
 
-\begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
-\emph{\textcolor{blue}{TTEthernet}}  
-\begin{itemize}
-\item implementation of the \emph{\textcolor{blue}{Ethernet}} standard which complies with
-\textcolor{red}{time-critical}, \textcolor{red}{deterministic} and \textcolor{red}{safety-critical} real-time requirements.
+%% \begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
+%% \emph{\textcolor{blue}{TTEthernet}}  
+%% \begin{itemize}
+%% \item implementation of the \emph{\textcolor{blue}{Ethernet}} standard which complies with
+%% \textcolor{red}{time-critical}, \textcolor{red}{deterministic} and \textcolor{red}{safety-critical} real-time requirements.
 
-\item[] \textcolor{white}{used in commercial \textcolor{white}{hardware} and \textcolor{white}{software} products,
-e.g. the avionics of the \emph{\textcolor{white}{Orion Space Program}}.}
+%% \item[] \textcolor{white}{used in commercial \textcolor{white}{hardware} and \textcolor{white}{software} products,
+%% e.g. the avionics of the \emph{\textcolor{white}{Orion Space Program}}.}
 
-\item[] \textcolor{white}{assumes a \textcolor{white}{global time base} for tolerating faulty behavior of safety critical systems.}
-	\begin{itemize}
-		\item[]  \textcolor{white}{any two logical clocks of two distributed
-						components must read \textcolor{white}{the same values} at any time (\emph{\textcolor{white}{precision}}).
-						The precision is ensured by a \textcolor{white}{clock synchronization algorithm}. }
-	\end{itemize}
-\end{itemize}
-\end{frame} 
+%% \item[] \textcolor{white}{assumes a \textcolor{white}{global time base} for tolerating faulty behavior of safety critical systems.}
+%% 	\begin{itemize}
+%% 		\item[]  \textcolor{white}{any two logical clocks of two distributed
+%% 						components must read \textcolor{white}{the same values} at any time (\emph{\textcolor{white}{precision}}).
+%% 						The precision is ensured by a \textcolor{white}{clock synchronization algorithm}. }
+%% 	\end{itemize}
+%% \end{itemize}
+%% \end{frame} 
 
-\begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
-\emph{\textcolor{blue}{TTEthernet}}  
-\begin{itemize}
-\item implementation of the \emph{\textcolor{blue}{Ethernet}} standard which complies with
-\textcolor{red}{time-critical}, \textcolor{red}{deterministic} and \textcolor{red}{safety-critical} real-time requirements.
+%% \begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
+%% \emph{\textcolor{blue}{TTEthernet}}  
+%% \begin{itemize}
+%% \item implementation of the \emph{\textcolor{blue}{Ethernet}} standard which complies with
+%% \textcolor{red}{time-critical}, \textcolor{red}{deterministic} and \textcolor{red}{safety-critical} real-time requirements.
 
-\item used in commercial \textcolor{red}{hardware} and \textcolor{red}{software} products,
-e.g. the avionics of the \emph{\textcolor{blue}{Orion Space Program}}.
+%% \item used in commercial \textcolor{red}{hardware} and \textcolor{red}{software} products,
+%% e.g. the avionics of the \emph{\textcolor{blue}{Orion Space Program}}.
 
-\item[] \textcolor{white}{assumes a \textcolor{white}{global time base} for tolerating faulty behavior of safety critical systems.}
-	\begin{itemize}
-		\item[]  \textcolor{white}{any two logical clocks of two distributed
-						components must read \textcolor{white}{the same values} at any time (\emph{\textcolor{white}{precision}}).
-						The precision is ensured by a \textcolor{white}{clock synchronization algorithm}. }
-	\end{itemize}
-\end{itemize}
-\end{frame} 
+%% \item[] \textcolor{white}{assumes a \textcolor{white}{global time base} for tolerating faulty behavior of safety critical systems.}
+%% 	\begin{itemize}
+%% 		\item[]  \textcolor{white}{any two logical clocks of two distributed
+%% 						components must read \textcolor{white}{the same values} at any time (\emph{\textcolor{white}{precision}}).
+%% 						The precision is ensured by a \textcolor{white}{clock synchronization algorithm}. }
+%% 	\end{itemize}
+%% \end{itemize}
+%% \end{frame} 
 
 
 \begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
@@ -720,8 +720,39 @@ runs of $\mathcal{N}$ and at all points in time, except when \textcolor{blue}{$x
 \end{enumerate}
 \end{frame}
 
-\begin{frame}\frametitle{}
-\centering{Thanks for your attention.}
+
+\begin{frame}\frametitle{\textbf{Advertisement}}
+
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.5\textwidth]{anu}
+\end{figure}
+
+\centering{I have multiple open PhD students positions and looking for students
+  to fill them!}
+
 \end{frame}
+
+
+\begin{frame}\frametitle{\textbf{Conclusion}}
+
+\begin{itemize}
+
+\item Presented a benchmark for verification of
+  \textcolor{red}{fault-tolerant clock syncronization protocols}.
+
+\item Demonstrated application of techniques based on the idea of
+  \textcolor{red}{quasi dependent variables} to reduce benchmark
+  complexity.
+
+\end{itemize}
+
+\end{frame}
+
+
+%% \begin{frame}\frametitle{}
+%% \centering{Thanks for your attention.}
+%% \end{frame}
 
 \end{document}
