@@ -188,7 +188,7 @@
 \begin{document}
 \title{\centering \textbf{Verification of Fault-Tolerant Clock\\
 Synchronization Algorithms\\ (Benchmark Proposal)}} 
-\author{\textcolor{red}{{\bf{Sergiy Bogomolov}}$^{1}$, Christian Herrera$^{2}$ and Wilfried Steiner$^{3}$}  
+\author{\textcolor{red}{Sergiy Bogomolov$^{1}$, Christian Herrera$^{2}$ and Wilfried Steiner$^{3}$}  
 	\center{IST Austria$^{1}$, \\University of Freiburg$^{2}$, \\TTTech Computertechnik AG$^{3}$ }}
 \date{April 11th, 2016}
 \begin{frame}
@@ -196,41 +196,41 @@ Synchronization Algorithms\\ (Benchmark Proposal)}}
 \end{frame}
  
 
-%% \begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
-%% \emph{\textcolor{blue}{TTEthernet}}  
-%% \begin{itemize}
-%% \item implementation of the \emph{\textcolor{blue}{Ethernet}} standard which complies with
-%% \textcolor{red}{time-critical}, \textcolor{red}{deterministic} and \textcolor{red}{safety-critical} real-time requirements.
+\begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
+\emph{\textcolor{blue}{TTEthernet}}  
+\begin{itemize}
+\item implementation of the \emph{\textcolor{blue}{Ethernet}} standard which complies with
+\textcolor{red}{time-critical}, \textcolor{red}{deterministic} and \textcolor{red}{safety-critical} real-time requirements.
 
-%% \item[] \textcolor{white}{used in commercial \textcolor{white}{hardware} and \textcolor{white}{software} products,
-%% e.g. the avionics of the \emph{\textcolor{white}{Orion Space Program}}.}
+\item[] \textcolor{white}{used in commercial \textcolor{white}{hardware} and \textcolor{white}{software} products,
+e.g. the avionics of the \emph{\textcolor{white}{Orion Space Program}}.}
 
-%% \item[] \textcolor{white}{assumes a \textcolor{white}{global time base} for tolerating faulty behavior of safety critical systems.}
-%% 	\begin{itemize}
-%% 		\item[]  \textcolor{white}{any two logical clocks of two distributed
-%% 						components must read \textcolor{white}{the same values} at any time (\emph{\textcolor{white}{precision}}).
-%% 						The precision is ensured by a \textcolor{white}{clock synchronization algorithm}. }
-%% 	\end{itemize}
-%% \end{itemize}
-%% \end{frame} 
+\item[] \textcolor{white}{assumes a \textcolor{white}{global time base} for tolerating faulty behavior of safety critical systems.}
+	\begin{itemize}
+		\item[]  \textcolor{white}{any two logical clocks of two distributed
+						components must read \textcolor{white}{the same values} at any time (\emph{\textcolor{white}{precision}}).
+						The precision is ensured by a \textcolor{white}{clock synchronization algorithm}. }
+	\end{itemize}
+\end{itemize}
+\end{frame} 
 
-%% \begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
-%% \emph{\textcolor{blue}{TTEthernet}}  
-%% \begin{itemize}
-%% \item implementation of the \emph{\textcolor{blue}{Ethernet}} standard which complies with
-%% \textcolor{red}{time-critical}, \textcolor{red}{deterministic} and \textcolor{red}{safety-critical} real-time requirements.
+\begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
+\emph{\textcolor{blue}{TTEthernet}}  
+\begin{itemize}
+\item implementation of the \emph{\textcolor{blue}{Ethernet}} standard which complies with
+\textcolor{red}{time-critical}, \textcolor{red}{deterministic} and \textcolor{red}{safety-critical} real-time requirements.
 
-%% \item used in commercial \textcolor{red}{hardware} and \textcolor{red}{software} products,
-%% e.g. the avionics of the \emph{\textcolor{blue}{Orion Space Program}}.
+\item used in commercial \textcolor{red}{hardware} and \textcolor{red}{software} products,
+e.g. the avionics of the \emph{\textcolor{blue}{Orion Space Program}}.
 
-%% \item[] \textcolor{white}{assumes a \textcolor{white}{global time base} for tolerating faulty behavior of safety critical systems.}
-%% 	\begin{itemize}
-%% 		\item[]  \textcolor{white}{any two logical clocks of two distributed
-%% 						components must read \textcolor{white}{the same values} at any time (\emph{\textcolor{white}{precision}}).
-%% 						The precision is ensured by a \textcolor{white}{clock synchronization algorithm}. }
-%% 	\end{itemize}
-%% \end{itemize}
-%% \end{frame} 
+\item[] \textcolor{white}{assumes a \textcolor{white}{global time base} for tolerating faulty behavior of safety critical systems.}
+	\begin{itemize}
+		\item[]  \textcolor{white}{any two logical clocks of two distributed
+						components must read \textcolor{white}{the same values} at any time (\emph{\textcolor{white}{precision}}).
+						The precision is ensured by a \textcolor{white}{clock synchronization algorithm}. }
+	\end{itemize}
+\end{itemize}
+\end{frame} 
 
 
 \begin{frame}\frametitle{\textbf{Motivation -- TTEthernet}}
@@ -482,25 +482,29 @@ We propose a \emph{\textcolor{blue}{benchmark}} which can be used as a basis for
  \coordinate (init) at (-110bp,77bp);
  \node (A) at (-35bp,77bp) [state] {\scriptsize$\mathit{waiting}$};
  \node (B) at (70bp,77bp) [state] {\scriptsize$\mathit{receive}$};
- \node (C) at (175bp,77bp) [state] {\scriptsize$\mathit{correct}$};
-  \node (D) at (22bp,100bp) [] {\scriptsize$\mathit{\textcolor{blue}{snd}}$};
+ \node (C) at (175bp,77bp) [state] {\scriptsize$\mathit{correct1}$};
+  \node (E) at (280bp,77bp) [state] {\scriptsize$\mathit{correct2}$};
+  \node (D) at (22bp,99bp) [] {\scriptsize$\textcolor{blue}{\mathit{snd}}$};
 
  \node (Asubscript) at (-35bp, 40bp)  {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$};
  \node (Asuperscript) at (-35bp, 110bp)  {\scriptsize $\textcolor{red}{x} \le \mathit{delay}$}; %vertical diff is 24bp
  \node (Bsubscript) at (70bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; %horizontal diff is 105bp
  \node (Bsuperscript) at (70bp, 110bp)  {\scriptsize $\textcolor{red}{x} \le 0$}; 
  \node (Csubscript) at (175bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; 
- \node (Csuperscript) at (175bp, 110bp)  {\scriptsize $\textcolor{red}{x} \le 0$};
+  \node (Csubscript) at (280bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; 
+ \node (Csuperscript) at (173bp, 111bp)  {\scriptsize $\textcolor{red}{x} \le 0$};
+  \node (Csuperscript) at (280bp, 112bp)  {\scriptsize $\textcolor{red}{x} \le 0$};
 
  \node (automatonname) at (-110bp, 101bp)  {$\mathit{CM1}$:};
 
 
- \draw [->] (init) to node[above] {\scriptsize $\textcolor{red}{x} := 0$} node[below] 
- 						{\scriptsize $\mathit{\textcolor{red}{cm1}} := 0$}(A);
+ \draw [->] (init) to node[above] {\scriptsize $\textcolor{red}{x} := 0$} node[below] {\scriptsize $\textcolor{red}{\mathit{cm1}} := 0$}(A);
  \draw [->] (A) to node[above] {\scriptsize $\textcolor{red}{x} \geq \mathit{delay}$} node[below]
- 		{ $\substack{\textcolor{red}{x}:=0,\\ \mathit{\textcolor{red}{cm1}}:= \mathit{\textcolor{red}{sm3}}}$}(B);
- \draw [->] (B) to node[above] {\scriptsize$\mathit{\textcolor{blue}{sync}}$} (C);
- \draw [->] (C) to[distance=3cm, bend right]  node[above] {\scriptsize$\mathit{\textcolor{blue}{back}}$} (A);
+ 		{\scriptsize $\textcolor{red}{x}:=0$} (B);
+ \draw [->] (B) to node[above] {\scriptsize$\textcolor{blue}{\mathit{sync}}$} node[below]
+ 		{ $\substack{\textcolor{red}{\mathit{cm1}}:=\\\textcolor{red}{\mathit{sm3}}}$} (C);
+  \draw [->] (C) to node[above] {\scriptsize$\textcolor{blue}{\mathit{sync}}$} (E);
+ \draw [->] (E) to[distance=3cm, bend right]  node[above] {\scriptsize$\textcolor{blue}{\mathit{back}}$} (A);
 
 \end{tikzpicture}
 
@@ -509,7 +513,8 @@ We propose a \emph{\textcolor{blue}{benchmark}} which can be used as a basis for
  \coordinate (init) at (-105bp,77bp);
  \node (A) at (-35bp,77bp) [state] {\scriptsize$\mathit{\textcolor{white}{work}}$};
  \node (B) at (70bp,77bp) [state] {\scriptsize$\mathit{\textcolor{white}{send}}$};
- \node (C) at (190bp,77bp) [state] {\scriptsize$\mathit{\textcolor{white}{sync}}$};
+ \node (C) at (190bp,77bp) [state] {\scriptsize$\mathit{\textcolor{white}{sync1}}$};
+   \node (C) at (310bp,77bp) [state] {\scriptsize$\mathit{\textcolor{white}{sync2}}$};
 
  \node (Asubscript) at (-35bp, 46bp)  {\scriptsize $\textcolor{white}{\dot{\mathit{sm3= 1}}} $};
  \node (Bsubscript) at (70bp, 46bp) {\scriptsize $\textcolor{white}{\dot{\mathit{sm3 = 1}}}$}; %horizontal diff is 105bp
@@ -534,30 +539,33 @@ We propose a \emph{\textcolor{blue}{benchmark}} which can be used as a basis for
 \begin{frame}\frametitle{\textbf{Benchmark -- Network of Hybrid Automata $\mathcal{N}$}}
 \centering
 \begin{tikzpicture}[>=latex',join=bevel, scale=0.7]
- \tikzstyle{every state}=     [draw=blue!50,very thick,fill=blue!20]
+\tikzstyle{every state}=     [draw=blue!50,very thick,fill=blue!20]
  \coordinate (init) at (-110bp,77bp);
  \node (A) at (-35bp,77bp) [state] {\scriptsize$\mathit{waiting}$};
  \node (B) at (70bp,77bp) [state] {\scriptsize$\mathit{receive}$};
- \node (C) at (175bp,77bp) [state] {\scriptsize$\mathit{correct}$};
-  \node (D) at (22bp,100bp) [] {\scriptsize$\mathit{\textcolor{blue}{snd}}$};
+ \node (C) at (175bp,77bp) [state] {\scriptsize$\mathit{correct1}$};
+  \node (E) at (280bp,77bp) [state] {\scriptsize$\mathit{correct2}$};
+  \node (D) at (22bp,99bp) [] {\scriptsize$\textcolor{blue}{\mathit{snd}}$};
 
  \node (Asubscript) at (-35bp, 40bp)  {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$};
  \node (Asuperscript) at (-35bp, 110bp)  {\scriptsize $\textcolor{red}{x} \le \mathit{delay}$}; %vertical diff is 24bp
  \node (Bsubscript) at (70bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; %horizontal diff is 105bp
  \node (Bsuperscript) at (70bp, 110bp)  {\scriptsize $\textcolor{red}{x} \le 0$}; 
  \node (Csubscript) at (175bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; 
- \node (Csuperscript) at (175bp, 110bp)  {\scriptsize $\textcolor{red}{x} \le 0$};
+  \node (Csubscript) at (280bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; 
+ \node (Csuperscript) at (173bp, 111bp)  {\scriptsize $\textcolor{red}{x} \le 0$};
+  \node (Csuperscript) at (280bp, 112bp)  {\scriptsize $\textcolor{red}{x} \le 0$};
 
  \node (automatonname) at (-110bp, 101bp)  {$\mathit{CM1}$:};
 
 
- \draw [->] (init) to node[above] {\scriptsize $\textcolor{red}{x} := 0$} node[below] 
- 						{\scriptsize $\mathit{\textcolor{red}{cm1}} := 0$}(A);
+ \draw [->] (init) to node[above] {\scriptsize $\textcolor{red}{x} := 0$} node[below] {\scriptsize $\textcolor{red}{\mathit{cm1}} := 0$}(A);
  \draw [->] (A) to node[above] {\scriptsize $\textcolor{red}{x} \geq \mathit{delay}$} node[below]
- 		{ $\substack{\textcolor{red}{x}:=0,\\ \mathit{\textcolor{red}{cm1}}:= \mathit{\textcolor{red}{sm3}}}$}(B);
- \draw [->] (B) to node[above] {\scriptsize$\mathit{\textcolor{blue}{sync}}$} (C);
- \draw [->] (C) to[distance=3cm, bend right]  node[above] {\scriptsize$\mathit{\textcolor{blue}{back}}$} (A);
-
+ 		{\scriptsize $\textcolor{red}{x}:=0$} (B);
+ \draw [->] (B) to node[above] {\scriptsize$\textcolor{blue}{\mathit{sync}}$} node[below]
+ 		{ $\substack{\textcolor{red}{\mathit{cm1}}:=\\\textcolor{red}{\mathit{sm3}}}$} (C);
+  \draw [->] (C) to node[above] {\scriptsize$\textcolor{blue}{\mathit{sync}}$} (E);
+ \draw [->] (E) to[distance=3cm, bend right]  node[above] {\scriptsize$\textcolor{blue}{\mathit{back}}$} (A);
 \end{tikzpicture}
 
 \begin{tikzpicture}[>=latex',join=bevel,scale=0.7]
@@ -565,22 +573,24 @@ We propose a \emph{\textcolor{blue}{benchmark}} which can be used as a basis for
  \coordinate (init) at (-105bp,77bp);
  \node (A) at (-35bp,77bp) [state] {\scriptsize$\mathit{work}$};
  \node (B) at (70bp,77bp) [state] {\scriptsize$\mathit{send}$};
- \node (C) at (190bp,77bp) [state] {\scriptsize$\mathit{sync}$};
+ \node (B1) at (190bp,77bp) [state] {\scriptsize$\mathit{sync1}$};
+  \node (C) at (310bp,77bp) [state] {\scriptsize$\mathit{sync2}$};
 
  \node (Asubscript) at (-35bp, 46bp)  {\scriptsize $\dot{\mathit{sm3}} = 1$};
  \node (Bsubscript) at (70bp, 46bp) {\scriptsize $\dot{\mathit{sm3}} = 1$}; %horizontal diff is 105bp
  \node (Csubscript) at (190bp, 46bp) {\scriptsize $\dot{\mathit{sm3}} = 1$}; 
+  \node (Csubscript) at (310bp, 46bp) {\scriptsize $\dot{\mathit{sm3}} = 1$}; 
 
  \node (automatonname) at (-110bp, 101bp)  {$\mathit{SM3}$:};
 
 
- \draw [->] (init) to node[above] {\scriptsize $\mathit{\textcolor{red}{sm3}}:=0$} (A);
- \draw [->] (A) to node[above] {\scriptsize $\mathit{\textcolor{blue}{snd}}$} 
- 				node[below]{$\substack{\mathit{\textcolor{red}{sm3}}:=\\ \mathit{\textcolor{red}{sm3}}+\mathit{drift3}}$}(B);
- \draw [->] (B) to node[above] {\scriptsize $\mathit{\textcolor{blue}{sync}}$} 
- 					node[below]{$\substack{\mathit{\textcolor{red}{sm3}}:= \\ 
- 						(\mathit{\textcolor{red}{cm1}}+\mathit{\textcolor{red}{cm2}})/2}$}(C);
- 	 \draw [->] (C) to[bend right]  node[above] {\scriptsize$\mathit{\textcolor{blue}{back}}$} (A);				
+ \draw [->] (init) to node[above] {\scriptsize $\textcolor{red}{\mathit{sm3}}:=0$} (A);
+ \draw [->] (A) to node[above] {\scriptsize $\textcolor{blue}{\mathit{snd}}$} 
+ 				node[below]{$\substack{\textcolor{red}{\mathit{sm3}}:=\\ \textcolor{red}{\mathit{sm3}}+\textcolor{red}{\mathit{drift3}}}$}(B);
+ \draw [->] (B) to node[above] {\scriptsize $\textcolor{blue}{\mathit{sync}}$}	(B1);
+ \draw [->] (B1) to node[above] {\scriptsize $\textcolor{blue}{\mathit{sync}}$} 
+ 					node[below]{$\substack{\textcolor{red}{\mathit{sm3}}:= \\ (\textcolor{red}{\mathit{cm1}}+\textcolor{red}{\mathit{cm2}})/2}$}(C);
+ 	 \draw [->] (C) to[bend right]  node[above] {\scriptsize$\textcolor{blue}{\mathit{back}}$} (A);							
 \end{tikzpicture}
 
 \emph{\textcolor{white}{Precision: $\forall i\neq j\in\mathbb{N}\bullet \ sm_i > sm_j \implies sm_i-sm_j \leq 2*\mathit{maxdrift}$}} 
@@ -590,30 +600,33 @@ We propose a \emph{\textcolor{blue}{benchmark}} which can be used as a basis for
 \begin{frame}\frametitle{\textbf{Benchmark -- Network of Hybrid Automata $\mathcal{N}$}}
 \centering
 \begin{tikzpicture}[>=latex',join=bevel, scale=0.7]
- \tikzstyle{every state}=     [draw=blue!50,very thick,fill=blue!20]
+\tikzstyle{every state}=     [draw=blue!50,very thick,fill=blue!20]
  \coordinate (init) at (-110bp,77bp);
  \node (A) at (-35bp,77bp) [state] {\scriptsize$\mathit{waiting}$};
  \node (B) at (70bp,77bp) [state] {\scriptsize$\mathit{receive}$};
- \node (C) at (175bp,77bp) [state] {\scriptsize$\mathit{correct}$};
-  \node (D) at (22bp,100bp) [] {\scriptsize$\mathit{\textcolor{blue}{snd}}$};
+ \node (C) at (175bp,77bp) [state] {\scriptsize$\mathit{correct1}$};
+  \node (E) at (280bp,77bp) [state] {\scriptsize$\mathit{correct2}$};
+  \node (D) at (22bp,99bp) [] {\scriptsize$\textcolor{blue}{\mathit{snd}}$};
 
  \node (Asubscript) at (-35bp, 40bp)  {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$};
  \node (Asuperscript) at (-35bp, 110bp)  {\scriptsize $\textcolor{red}{x} \le \mathit{delay}$}; %vertical diff is 24bp
  \node (Bsubscript) at (70bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; %horizontal diff is 105bp
  \node (Bsuperscript) at (70bp, 110bp)  {\scriptsize $\textcolor{red}{x} \le 0$}; 
  \node (Csubscript) at (175bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; 
- \node (Csuperscript) at (175bp, 110bp)  {\scriptsize $\textcolor{red}{x} \le 0$};
+  \node (Csubscript) at (280bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; 
+ \node (Csuperscript) at (173bp, 111bp)  {\scriptsize $\textcolor{red}{x} \le 0$};
+  \node (Csuperscript) at (280bp, 112bp)  {\scriptsize $\textcolor{red}{x} \le 0$};
 
  \node (automatonname) at (-110bp, 101bp)  {$\mathit{CM1}$:};
 
 
- \draw [->] (init) to node[above] {\scriptsize $\textcolor{red}{x} := 0$} node[below] 
- 						{\scriptsize $\mathit{\textcolor{red}{cm1}} := 0$}(A);
+ \draw [->] (init) to node[above] {\scriptsize $\textcolor{red}{x} := 0$} node[below] {\scriptsize $\textcolor{red}{\mathit{cm1}} := 0$}(A);
  \draw [->] (A) to node[above] {\scriptsize $\textcolor{red}{x} \geq \mathit{delay}$} node[below]
- 		{ $\substack{\textcolor{red}{x}:=0,\\ \mathit{\textcolor{red}{cm1}}:= \mathit{\textcolor{red}{sm3}}}$}(B);
- \draw [->] (B) to node[above] {\scriptsize$\mathit{\textcolor{blue}{sync}}$} (C);
- \draw [->] (C) to[distance=3cm, bend right]  node[above] {\scriptsize$\mathit{\textcolor{blue}{back}}$} (A);
-
+ 		{\scriptsize $\textcolor{red}{x}:=0$} (B);
+ \draw [->] (B) to node[above] {\scriptsize$\textcolor{blue}{\mathit{sync}}$} node[below]
+ 		{ $\substack{\textcolor{red}{\mathit{cm1}}:=\\\textcolor{red}{\mathit{sm3}}}$} (C);
+  \draw [->] (C) to node[above] {\scriptsize$\textcolor{blue}{\mathit{sync}}$} (E);
+ \draw [->] (E) to[distance=3cm, bend right]  node[above] {\scriptsize$\textcolor{blue}{\mathit{back}}$} (A);
 \end{tikzpicture}
 
 \begin{tikzpicture}[>=latex',join=bevel,scale=0.7]
@@ -621,22 +634,24 @@ We propose a \emph{\textcolor{blue}{benchmark}} which can be used as a basis for
  \coordinate (init) at (-105bp,77bp);
  \node (A) at (-35bp,77bp) [state] {\scriptsize$\mathit{work}$};
  \node (B) at (70bp,77bp) [state] {\scriptsize$\mathit{send}$};
- \node (C) at (190bp,77bp) [state] {\scriptsize$\mathit{sync}$};
+ \node (B1) at (190bp,77bp) [state] {\scriptsize$\mathit{sync1}$};
+  \node (C) at (310bp,77bp) [state] {\scriptsize$\mathit{sync2}$};
 
  \node (Asubscript) at (-35bp, 46bp)  {\scriptsize $\dot{\mathit{sm3}} = 1$};
  \node (Bsubscript) at (70bp, 46bp) {\scriptsize $\dot{\mathit{sm3}} = 1$}; %horizontal diff is 105bp
  \node (Csubscript) at (190bp, 46bp) {\scriptsize $\dot{\mathit{sm3}} = 1$}; 
+  \node (Csubscript) at (310bp, 46bp) {\scriptsize $\dot{\mathit{sm3}} = 1$}; 
 
  \node (automatonname) at (-110bp, 101bp)  {$\mathit{SM3}$:};
 
 
- \draw [->] (init) to node[above] {\scriptsize $\mathit{\textcolor{red}{sm3}}:=0$} (A);
- \draw [->] (A) to node[above] {\scriptsize $\mathit{\textcolor{blue}{snd}}$} 
- 				node[below]{$\substack{\mathit{\textcolor{red}{sm3}}:=\\ \mathit{\textcolor{red}{sm3}}+\mathit{drift3}}$}(B);
- \draw [->] (B) to node[above] {\scriptsize $\mathit{\textcolor{blue}{sync}}$} 
- 					node[below]{$\substack{\mathit{\textcolor{red}{sm3}}:= \\ 
- 						(\mathit{\textcolor{red}{cm1}}+\mathit{\textcolor{red}{cm2}})/2}$}(C);
- 	 \draw [->] (C) to[bend right]  node[above] {\scriptsize$\mathit{\textcolor{blue}{back}}$} (A);				
+ \draw [->] (init) to node[above] {\scriptsize $\textcolor{red}{\mathit{sm3}}:=0$} (A);
+ \draw [->] (A) to node[above] {\scriptsize $\textcolor{blue}{\mathit{snd}}$} 
+ 				node[below]{$\substack{\textcolor{red}{\mathit{sm3}}:=\\ \textcolor{red}{\mathit{sm3}}+\textcolor{red}{\mathit{drift3}}}$}(B);
+ \draw [->] (B) to node[above] {\scriptsize $\textcolor{blue}{\mathit{sync}}$}	(B1);
+ \draw [->] (B1) to node[above] {\scriptsize $\textcolor{blue}{\mathit{sync}}$} 
+ 					node[below]{$\substack{\textcolor{red}{\mathit{sm3}}:= \\ (\textcolor{red}{\mathit{cm1}}+\textcolor{red}{\mathit{cm2}})/2}$}(C);
+ 	 \draw [->] (C) to[bend right]  node[above] {\scriptsize$\textcolor{blue}{\mathit{back}}$} (A);				
 \end{tikzpicture}
 
 \emph{\textcolor{blue}{Precision}: $\forall i\neq j\in\mathbb{N}\bullet \ sm_i > sm_j \implies sm_i-sm_j \leq 2*\mathit{maxdrift}$} 
@@ -689,12 +704,12 @@ runs of $\mathcal{N}$ and at all points in time, except when \textcolor{blue}{$x
     &\scriptsize $\mathcal{N}$ &\scriptsize $\mathcal{N}'$  
     &\scriptsize $\mathcal{N}$ &\scriptsize $\mathcal{N}'$ 
     \\    \hline\hline 
-    \scriptsize $5 + 2$ & \scriptsize 7 & \scriptsize 2 &\scriptsize 31.32 
-    &\scriptsize 11.96
+    \scriptsize $5 + 2$ & \scriptsize 7 & \scriptsize 2 &\scriptsize 30.64 
+    &\scriptsize 1.55
     \\    \hline 
-    \scriptsize $20 + 2$ & \scriptsize 22 & \scriptsize 2  &\scriptsize 124.08&\scriptsize 12.11
+    \scriptsize $7 + 2$ & \scriptsize 9 & \scriptsize 2  &\scriptsize 128.70&\scriptsize 1.62
     \\    \hline 
-    \scriptsize $30 + 2$ & \scriptsize 32 &\scriptsize 2 &\scriptsize 201.21 &\scriptsize 12.57
+    \scriptsize $9 + 2$ & \scriptsize 11 &\scriptsize 2 &\scriptsize 1,237.05 &\scriptsize 1.71
     \\    \hline 
   \end{tabular}
   % 
@@ -720,39 +735,8 @@ runs of $\mathcal{N}$ and at all points in time, except when \textcolor{blue}{$x
 \end{enumerate}
 \end{frame}
 
-
-\begin{frame}\frametitle{\textbf{Advertisement}}
-
-
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.5\textwidth]{anu}
-\end{figure}
-
-\centering{I have multiple open PhD students positions and looking for students
-  to fill them!}
-
+\begin{frame}\frametitle{}
+\centering{Thanks for your attention.}
 \end{frame}
-
-
-\begin{frame}\frametitle{\textbf{Conclusion}}
-
-\begin{itemize}
-
-\item Presented a benchmark for verification of
-  \textcolor{red}{fault-tolerant clock syncronization protocols}.
-
-\item Demonstrated application of techniques based on the idea of
-  \textcolor{red}{quasi dependent variables} to reduce benchmark
-  complexity.
-
-\end{itemize}
-
-\end{frame}
-
-
-%% \begin{frame}\frametitle{}
-%% \centering{Thanks for your attention.}
-%% \end{frame}
 
 \end{document}
