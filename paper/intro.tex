@@ -73,7 +73,8 @@ some possible extensions.
  \coordinate (init) at (-110bp,77bp);
  \node (A) at (-35bp,77bp) [state] {\scriptsize$\mathit{waiting}$};
  \node (B) at (70bp,77bp) [state] {\scriptsize$\mathit{receive}$};
- \node (C) at (175bp,77bp) [state] {\scriptsize$\mathit{correct}$};
+ \node (C) at (175bp,77bp) [state] {\scriptsize$\mathit{correct1}$};
+  \node (E) at (280bp,77bp) [state] {\scriptsize$\mathit{correct2}$};
   \node (D) at (22bp,97bp) [] {\scriptsize$\mathit{snd}$};
 
  \node (Asubscript) at (-35bp, 40bp)  {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$};
@@ -81,16 +82,20 @@ some possible extensions.
  \node (Bsubscript) at (70bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; %horizontal diff is 105bp
  \node (Bsuperscript) at (70bp, 110bp)  {\scriptsize $x \le 0$}; 
  \node (Csubscript) at (175bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; 
- \node (Csuperscript) at (175bp, 110bp)  {\scriptsize $x \le 0$};
+  \node (Csubscript) at (280bp, 40bp) {\scriptsize $\dot{x} = 1, \dot{\mathit{cm1}} = 0$}; 
+ \node (Csuperscript) at (173bp, 111bp)  {\scriptsize $x \le 0$};
+  \node (Csuperscript) at (280bp, 112bp)  {\scriptsize $x \le 0$};
 
  \node (automatonname) at (-110bp, 101bp)  {$\mathit{CM1}$:};
 
 
  \draw [->] (init) to node[above] {\scriptsize $x := 0$} node[below] {\scriptsize $\mathit{cm1} := 0$}(A);
  \draw [->] (A) to node[above] {\scriptsize $x \geq \mathit{delay}$} node[below]
- 		{ $\substack{x:=0,\\ \mathit{cm1}:= \mathit{sm3}}$}(B);
- \draw [->] (B) to node[above] {\scriptsize$\mathit{sync}$} (C);
- \draw [->] (C) to[distance=3cm, bend right]  node[above] {\scriptsize$\mathit{back}$} (A);
+ 		{\scriptsize $x:=0$} (B);
+ \draw [->] (B) to node[above] {\scriptsize$\mathit{sync}$} node[below]
+ 		{ $\substack{\mathit{cm1}:=\\\mathit{sm3}}$} (C);
+  \draw [->] (C) to node[above] {\scriptsize$\mathit{sync}$} (E);
+ \draw [->] (E) to[distance=3cm, bend right]  node[above] {\scriptsize$\mathit{back}$} (A);
 
 \end{tikzpicture}
 
@@ -99,11 +104,13 @@ some possible extensions.
  \coordinate (init) at (-105bp,77bp);
  \node (A) at (-35bp,77bp) [state] {\scriptsize$\mathit{work}$};
  \node (B) at (70bp,77bp) [state] {\scriptsize$\mathit{send}$};
- \node (C) at (190bp,77bp) [state] {\scriptsize$\mathit{sync}$};
+ \node (B1) at (190bp,77bp) [state] {\scriptsize$\mathit{sync1}$};
+  \node (C) at (310bp,77bp) [state] {\scriptsize$\mathit{sync2}$};
 
  \node (Asubscript) at (-35bp, 46bp)  {\scriptsize $\dot{\mathit{sm3}} = 1$};
  \node (Bsubscript) at (70bp, 46bp) {\scriptsize $\dot{\mathit{sm3}} = 1$}; %horizontal diff is 105bp
  \node (Csubscript) at (190bp, 46bp) {\scriptsize $\dot{\mathit{sm3}} = 1$}; 
+  \node (Csubscript) at (310bp, 46bp) {\scriptsize $\dot{\mathit{sm3}} = 1$}; 
 
  \node (automatonname) at (-110bp, 101bp)  {$\mathit{SM3}$:};
 
@@ -111,7 +118,8 @@ some possible extensions.
  \draw [->] (init) to node[above] {\scriptsize $\mathit{sm3}:=0$} (A);
  \draw [->] (A) to node[above] {\scriptsize $\mathit{snd}$} 
  				node[below]{$\substack{\mathit{sm3}:=\\ \mathit{sm3}+\mathit{drift3}}$}(B);
- \draw [->] (B) to node[above] {\scriptsize $\mathit{sync}$} 
+ \draw [->] (B) to node[above] {\scriptsize $\mathit{sync}$}	(B1);
+ \draw [->] (B1) to node[above] {\scriptsize $\mathit{sync}$} 
  					node[below]{$\substack{\mathit{sm3}:= \\ (\mathit{cm1}+\mathit{cm2})/2}$}(C);
  	 \draw [->] (C) to[bend right]  node[above] {\scriptsize$\mathit{back}$} (A);				
 \end{tikzpicture}
@@ -127,12 +135,12 @@ with two CMs, namely, $\mathit{CM1}$ and $\mathit{CM2}$,
 and five SMs from $\mathit{SM1}$ to $\mathit{SM5}$. 
 In Figure~\ref{fig1} automaton $\mathit{CM1}$ consists of the 
 real variables $x$ (the local clock with \emph{rate} 1), and $\mathit{cm1}$ which stores the result of the first compression function, and 
-the locations $\mathit{waiting}$ (initial), $\mathit{receive}$ and $\mathit{correct}$, while 
+the locations $\mathit{waiting}$ (initial), $\mathit{receive}$, $\mathit{correct1}$ and $\mathit{correct2}$, while 
 automaton $\mathit{SM3}$ consists of the real variables $\mathit{sm3}$ (the local clock with rate 1);  \emph{drift3}  which ranges from 
 $-\mathit{maxdrift}$ to $\mathit{maxdrift}$, where $\mathit{maxdrift}$ describes the absolute value of the maximum 
 drift offset that a SM's clock can achieve before the execution of the synchronization algorithm, 
-and the locations $\mathit{work}$ (initial), $\mathit{send}$ 
-and $\mathit{sync}$. The exchange of PCFs between CMs and SMs is realized in our benchmark
+and the locations $\mathit{work}$ (initial), $\mathit{send}$, $\mathit{sync1}$ 
+and $\mathit{sync2}$. The exchange of PCFs between CMs and SMs is realized in our benchmark
 by using edges in SMs and CMs labeled with $\mathit{snd}$ and $\mathit{sync}$. 
 The rest of the CMs and SMs follow a similar structure.
 
@@ -141,13 +149,14 @@ with $\mathit{delay}>0$, at the unique location where a delay greater than 0 tim
 its initial location. Then after this delay 
 the CMs and SMs respectively transit simultaneously to locations $\mathit{receive}$ and 
 $\mathit{send}$ by taking the edges labeled with $\mathit{snd}$.
-By performing this transition each SM sends the drifted value of their clocks to both CMs. 
-Then $\mathit{CM1}$ and $\mathit{CM2}$ store in their variables $\mathit{cm1}$
+By performing this transition each SM sends the drifted value of its clock to both CMs. 
+Then by transiting to locations $\mathit{correct1}$, $\mathit{CM1}$ and $\mathit{CM2}$ store in their variables $\mathit{cm1}$
 and $\mathit{cm2}$, respectively, the result of the first compression function, which in Figure~\ref{fig1}
 we assume is the drifted value of the clock $\mathit{sm3}$. 
 The second compression function, performed to correct the value of the clock of each SM, 
 is executed when CMs and SMs transit simultaneously to locations
-$\mathit{correct}$ and $\mathit{sync}$, respectively, by taking the edges labeled with $\mathit{sync}$.
+$\mathit{correct2}$ and $\mathit{sync2}$, respectively, by taking the edges labeled with $\mathit{sync}$ pointing to the 
+mentioned locations.
 Finally, all automata return to their initial location by simultaneously taking the 
 edges labeled with $\mathit{back}$.
 
@@ -161,8 +170,8 @@ detection and reduction of quasi-dependent variables. Quasi-dependency of variab
 of \emph{quasi-equality} of clocks~\cite{Herrera,Herrera2,Herrera4}. Intuitively, between two variables $\clk$ and $\otherclk$ 
 of a hybrid automaton $\hautomaton$, there exists a quasi-dependency, namely, $\clk$ quasi-depends
 on $\otherclk$ via function $f$, if and only if at all runs of $\hautomaton$ and at all points in time,
-the value of $\clk$ is the value of $f$ applied to the value of $\otherclk$, except when the value of 
-$\otherclk$ is determined by an update action. 
+the value of $\clk$ is the value of $f$ applied to the value of $\otherclk$, except when the values of $\clk$ and 
+$\otherclk$ are updated by discrete actions. 
 
 The technique in~\cite{Herrera3} allows us to detect in our TTEthernet 
 network two sets of quasi-dependent variables, namely,
@@ -207,7 +216,7 @@ the mentioned scenarios, since that detection and reduction assumes that the rat
 In the following section, we present the results of our experiments, where our aim is to show that
 in our benchmark we have: (a) verified that the precision of the synchronization algorithm holds and, 
 (b) applied the techniques for detecting and reducing quasi-dependent variables. 
-We have verified the precision of the synchronization algorithm in settings of our benchmark with 2 CMs and from 5 to 30 SMs. 
+We have verified the precision of the synchronization algorithm in settings of our benchmark with 2 CMs and from 5 to 9 SMs. 
 We recall that our benchmark is a fault-tolerant TTEthernet network with non-faulty components. 
 In this benchmark, we verify that the maximal difference between the values of any two logical clocks of two SMs is bounded by 
 $2*\mathit{maxdrift}$, as reported in~\cite{Steiner2}, 
@@ -239,18 +248,18 @@ We observe that the transformation leads to a drastic performance improvement du
 \hline\hline
 \multicolumn{1}{l}{ Network} & \multicolumn{1}{c}{{C}} &\multicolumn{1}{c|}{ $t(s)$}  \\[0.5ex]
 \cline{1-3}
- \textit{TT-5}   & \makebox[0pt][r]{7}& 31.32	&\textit{}   & &  &  	\\
- \textit{TT-5K}   & \makebox[0pt][r]{2}&   11.96&\textit{}   & &  &  	\\
- \textit{TT-20}   & \makebox[0pt][r]{22}&   124.08	
+ \textit{TT-5}   & \makebox[0pt][r]{7}& 30.64	&\textit{}   & &  &  	\\
+ \textit{TT-5K}   & \makebox[0pt][r]{2}&   1.55&\textit{}   & &  &  	\\
+ \textit{TT-7}   & \makebox[0pt][r]{9}&   128.70	
   &\multicolumn{4}{l}{\quad\footnotesize
-    Experimental environment: Intel~i3,}  	\\
- \textit{TT-20K}   & \makebox[0pt][r]{2}&  12.11 
+    Experimental environment: Intel~i3, 2.3\,GHz, 3\,GB, Ubuntu~11.04.}  	\\
+ \textit{TT-7K}   & \makebox[0pt][r]{2}&  1.62 
   &\multicolumn{4}{l}{\quad\footnotesize
-    2.3\,GHz, 3\,GB, Ubuntu~11.04,}  	\\
- \textit{TT-30}   & \makebox[0pt][r]{32}&  201.21
+    SpaceEx server VM (VMX) v0.9.8b. PHAVer scenario. }   	\\
+ \textit{TT-9}   & \makebox[0pt][r]{11}&  1,237.05
   &\multicolumn{4}{l}{\quad\footnotesize
-    SpaceEx server VM (VMX) v0.9.8b / PHAVer scenario.}  	\\
- \textit{TT-30K}   & \makebox[0pt][r]{2}&  12.57  \\
+    Max. Iterations = 500.}  	\\
+ \textit{TT-9K}   & \makebox[0pt][r]{2}&  1.71  \\
 \cline{1-3}
 \end{tabular}
 
